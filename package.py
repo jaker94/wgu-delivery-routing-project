@@ -1,5 +1,4 @@
 # Creating package class
-
 class Package:
     def __init__(self, id, address, city, state, zip, deadline, kilo, notes):
         self.id = id

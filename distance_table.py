@@ -28,7 +28,7 @@ class DistanceTable:
 
                 #next need to find distances and add them to the distance list
                 distance_row = []
-
+                #skip the first 2 columns in the row because they are the building name and address to grab only the distance
                 for value in row[2:]:
                     if value == "":
                         distance_row.append(None)
@@ -37,7 +37,7 @@ class DistanceTable:
 
                 self.distances.append(distance_row)
 
-    ## get distance function
+    ## get distance function. Uses address lookup and assigns starting and ending locations in lookup to index1 and index2, then passes those into the matrix to find the value
 
     def get_distance(self, address1, address2):
         index1 = self.addresses_lookup[address1]

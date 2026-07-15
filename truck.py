@@ -11,6 +11,7 @@ class Truck:
         self.start_time = start_time
         self.current_time = start_time
 
+    #split this into it's own function so i can add the 16 package limit constraint to the trucks
     def add_package(self, package):
         if len(self.packages) >= 16:
             raise ValueError("Truck is full")

@@ -3,7 +3,7 @@ from hashtable import Hashtable
 from package import Package
 from csv_loader import load_packages
 from truck import Truck
-from routing import load_trucks, deliver_packages
+from routing import load_trucks, deliver_packages, return_to_hub
 from datetime import datetime
 from distance_table import DistanceTable
 
@@ -26,11 +26,17 @@ def main():
     distance_table.load_distances("WGUPS Distance Table (1) - Sheet1.csv")
 
     #create truck objects and load them
-    truck1, truck2, truck3 = load_trucks(package_table)
+    truck1, truck2, truck3 = load_trucks(package_table, distance_table)
+    print("Truck 1:", [p.id for p in truck1.packages])
+    print("Truck 2:", [p.id for p in truck2.packages])
+    print("Truck 3:", [p.id for p in truck3.packages])
 
     #start delivery
     deliver_packages(truck1, distance_table)
+    return_to_hub(truck1,  distance_table)
+
     deliver_packages(truck2, distance_table)
+    return_to_hub(truck2, distance_table)
 
     #figured out when truck 3 can leave
     delayed_ready_time = datetime.strptime("9:05", "%H:%M")
@@ -45,14 +51,20 @@ def main():
     #update current time to truck 3 start time
     truck3.current_time = truck3.start_time
 
+
     deliver_packages(truck3, distance_table)
 
-    #temp tracking currently assigned packages
-    assigned = {
-        3, 6, 9, 13, 14, 15, 16, 18, 19, 20,
-        25, 28, 32, 36, 38
-    }
+    for truck in (truck1, truck2, truck3):
+        print(f"\nTruck {truck.truck_id}")
+        print(f"Start time: {truck.start_time.strftime('%I:%M %p')}")
+        print(f"Mileage: {truck.mileage:.2f}")
 
+        for package in truck.delivered_packages:
+            print(
+                f"Package {package.id}: "
+                f"{package.delivery_time.strftime('%I:%M %p')} "
+                f"| Deadline: {package.deadline}"
+            )
 
 if __name__ == "__main__":
     main()
