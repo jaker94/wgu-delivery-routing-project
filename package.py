@@ -13,5 +13,5 @@ class Package:
 
         self.status = "at the hub"
         self.delivery_time = None
-
+        self.truck_id = None
 

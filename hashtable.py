@@ -33,8 +33,9 @@ class Hashtable:
 
         for package in bucket:
             if package.id == package_id:
-                return f"Package(\n ID = {package.id},\n Address = {package.address}, \n City = {package.city}, \n State = {package.state}, \n Zip = {package.zip}, \n Deadline = {package.deadline}, \n Weight = {package.kilo}, \n Status = {package.status})"
-        return None
+                return package
+
+            return None
 
 
     ##allowing the hashtable to look at all packages
