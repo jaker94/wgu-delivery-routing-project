@@ -35,3 +35,13 @@ class Hashtable:
             if package.id == package_id:
                 return f"Package(\n ID = {package.id},\n Address = {package.address}, \n City = {package.city}, \n State = {package.state}, \n Zip = {package.zip}, \n Deadline = {package.deadline}, \n Weight = {package.kilo}, \n Status = {package.status})"
         return None
+
+
+    ##allowing the hashtable to look at all packages
+    def get_all_packages(self):
+        packages = []
+
+        for bucket in self.table:
+            for package in bucket:
+                packages.append(package)
+        return packages
